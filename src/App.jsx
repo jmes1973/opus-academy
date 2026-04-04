@@ -1,7 +1,9 @@
-/* eslint-disable */
+﻿/* eslint-disable */
 import { useMemo, useState, useEffect } from "react";
 import volutracerLogo from "./assets/logos/Logo Volutracer OPUS.png";
 import opusLogo from "./assets/logos/Logo_OPUS_Academy_1280x720.png";
+import { STORAGE_KEYS, DEMO_CREDENTIALS } from "./shared/constants";
+import { safeJsonParse, normalizeLessonKey } from "./shared/utils";
 
 /* ────────────────────────────────────────────────
    DESIGN SYSTEM OPUS – COMPONENTES BASE
@@ -84,13 +86,10 @@ function Tag({ className = "", children }) {
    CONFIG – LOGIN / PDF / VIDEOS (VITE: public/)
 ────────────────────────────────────────────────── */
 
-const SESSION_STORAGE_KEY = "opus.session";
-const INTENDED_VIEW_KEY = "opus.intendedView";
+const SESSION_STORAGE_KEY = STORAGE_KEYS.SESSION;
+const INTENDED_VIEW_KEY = STORAGE_KEYS.INTENDED_VIEW;
 
-const DEMO_LOGIN = {
-  username: "admin",
-  password: "admin",
-};
+const DEMO_LOGIN = DEMO_CREDENTIALS;
 
 const APP_PDF = {
   label: "Protocolo RUSH – OPUS Academy (ES)",
@@ -671,14 +670,7 @@ const THEORY_BY_LESSON = {
    HELPERS
 ────────────────────────────────────────────────── */
 
-function safeJsonParse(raw, fallback) {
-  try {
-    if (!raw) return fallback;
-    return JSON.parse(raw);
-  } catch {
-    return fallback;
-  }
-}
+
 
 function makeToken() {
   try {
@@ -696,18 +688,7 @@ function makeToken() {
  * - guiones raros (–, —) => "-"
  * - espacios colapsados
  */
-function normalizeLessonKey(str) {
-  if (!str) return "";
-  let s = String(str).trim().toLowerCase();
-  s = s.replace(/[–—]/g, "-");
-  try {
-    s = s.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  } catch {
-    // ignore
-  }
-  s = s.replace(/\s+/g, " ");
-  return s;
-}
+
 
 // Crear mapa normalizado una vez
 const PDF_RANGES_NORMALIZED = (() => {
@@ -1846,3 +1827,4 @@ export default function App() {
     </div>
   );
 }
+
