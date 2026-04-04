@@ -2,7 +2,7 @@
 import { useMemo, useState, useEffect } from "react";
 import volutracerLogo from "./assets/logos/Logo Volutracer OPUS.png";
 import opusLogo from "./assets/logos/Logo_OPUS_Academy_1280x720.png";
-import { STORAGE_KEYS, DEMO_CREDENTIALS } from "./shared/constants";
+// import { STORAGE_KEYS, DEMO_CREDENTIALS } from "./shared/constants";
 import { safeJsonParse, normalizeLessonKey } from "./shared/utils";
 import { courses } from "./data/courses";
 import { quizzesByLesson } from "./data/quizzes";
@@ -91,10 +91,13 @@ function Tag({ className = "", children }) {
    CONFIG – LOGIN / PDF / VIDEOS (VITE: public/)
 ────────────────────────────────────────────────── */
 
-const SESSION_STORAGE_KEY = STORAGE_KEYS.SESSION;
-const INTENDED_VIEW_KEY = STORAGE_KEYS.INTENDED_VIEW;
+const SESSION_STORAGE_KEY = "opus.session";
+const INTENDED_VIEW_KEY = "opus.intendedView";
 
-const DEMO_LOGIN = DEMO_CREDENTIALS;
+const DEMO_LOGIN = {
+  username: "admin",
+  password: "admin",
+};
 
 const APP_PDF = {
   label: "Protocolo RUSH – OPUS Academy (ES)",
@@ -1298,5 +1301,6 @@ export default function App() {
     </div>
   );
 }
+
 
 
