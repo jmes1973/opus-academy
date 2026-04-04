@@ -8,7 +8,7 @@ import { courses } from "./data/courses";
 import { quizzesByLesson } from "./data/quizzes";
 import { theoryByLesson } from "./data/theory";
 import { objectivesByLesson } from "./data/objectives";
-import { pdfRangesByLesson } from "./data/pdfRanges";
+import * as pdfRangesModule from "./data/pdfRanges";
 
 /* ────────────────────────────────────────────────
    DESIGN SYSTEM OPUS – COMPONENTES BASE
@@ -108,7 +108,7 @@ const APP_PDF = {
  * Mapping de páginas por lección (PDF real).
  * Páginas 1-based (1 = portada).
  */
-const PDF_RANGES_BY_LESSON = pdfRangesByLesson;
+const PDF_RANGES_BY_LESSON = pdfRangesModule.pdfRangesByLesson || pdfRangesModule.PDF_RANGES_BY_LESSON || pdfRangesModule.default || {};
 
 const VIDEO_BY_LESSON = {
   // Cuando existan:
@@ -1301,6 +1301,7 @@ export default function App() {
     </div>
   );
 }
+
 
 
 
